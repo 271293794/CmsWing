@@ -1,5 +1,6 @@
 /**
  * Created by arter on 2017/7/9.
+ * 扩展 think 对象，think.xxx
  */
 const lodash = require('lodash');
 const path = require('path');

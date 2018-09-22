@@ -46,7 +46,7 @@ exports.session = {
 };
 
 /**
- * view adapter config
+ * view adapter config | 配置 View Adapter
  * @type {Object}
  */
 exports.view = require('./view');

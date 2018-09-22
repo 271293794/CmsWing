@@ -898,7 +898,7 @@ function _cart() {
         // console.log(arr.length);
         // console.log(shoptype.length);
         if (arr.length != shoptype.length) {
-          _toastr('添加失败，请选择商品规格!', 'top-right', 'error', false);
+          _toastr('添加失败，请选择商品规格123!', 'top-right', 'error', false);
           return false;
         }
         var img = $('figure').find('img').attr('src');

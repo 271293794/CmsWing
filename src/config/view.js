@@ -2,14 +2,15 @@
 const nunjucks = require('think-view-nunjucks');
 const path = require('path');
 module.exports = {
-  type: 'nunjucks',
+  type: 'nunjucks', // 这里指定默认的模板引擎是 nunjucks
   common: {
     viewPath: path.join(think.ROOT_PATH, 'view'),
-    sep: '_',
-    extname: '.html'
+    sep: '_', //Controller 与 Action 之间的连接符
+    extname: '.html' //模板文件扩展名
   },
   nunjucks: {
     handle: nunjucks,
+    // 模板渲染预处理
     beforeRender: (env, nunjucks, config) => {
     // env.addGlobal('config', think.config());
     // env.addGlobal('JSON', JSON);
@@ -18,6 +19,7 @@ module.exports = {
       * @param  number size      字节数
       * @param  string delimiter 数字和单位分隔符
       * @return string            格式化后的带单位的大小
+      * 使用方法如：<td>{{ item.size | format_bytes}}</td>
       */
       env.addFilter('format_bytes', function(size, delimiter = '') {
         const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];

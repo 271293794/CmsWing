@@ -1,5 +1,7 @@
 /**
  * Created by arter on 2017/7/9.
+ * 为 controller 类扩展方法，如在 controller 中分页，
+ * 则调用 22 行的【pagination】方法
  */
 const moment = require('moment');
 moment.locale('zh-cn');

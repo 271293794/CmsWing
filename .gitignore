@@ -47,6 +47,7 @@ Thumbs.db
 
 /.vscode/
 /package-lock.json
-
+#管理员上传的图片等
+www/upload/
 # private/pingpp/cmswing_rsa_private_key.pem
 # private/pingpp/pingpp_rsa_public_key.pem
