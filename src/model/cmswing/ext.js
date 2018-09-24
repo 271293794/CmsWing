@@ -20,6 +20,8 @@ module.exports = class extends think.Model {
 
   /**
    * 获取 缓存插件信息
+   * 获指定插件名称的 cache ,若为空，则设置后指定的 value 后，
+   * 再获取。this.select() 选中数据库中所有记录
    * @param extname
    * @param fields
    * @returns {Promise.<void>}

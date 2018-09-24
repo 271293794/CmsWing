@@ -3,7 +3,7 @@ const fs = require('fs');
 module.exports = class extends think.Controller {
   async fetchAction() {
     const res = await this.fetch('https://assets-cdn.github.com/images/modules/logos_page/Octocat.png');
-   // console.log(res);
+    // console.log(res);
     // const dest = fs.createWriteStream('./octocat.png');
     // res.body.pipe(dest);
     this.header('Content-Type', 'image/png');
@@ -47,7 +47,8 @@ module.exports = class extends think.Controller {
     return this.body = think._.padEnd('1', 10, '0') + m.substr(8);
   }
   async addAction() {
-    const data = { group_id: '0',
+    const data = {
+      group_id: '0',
       name: '',
       title: 'fdsafsafa',
       description: '',
@@ -74,7 +75,8 @@ module.exports = class extends think.Controller {
       create_time: 1504000783284,
       update_time: 1504000783284,
       status: 1,
-      id: 251 };
+      id: 251
+    };
     return await this.model('document_ttt').add(data);
   }
   ipAction() {
@@ -87,14 +89,14 @@ module.exports = class extends think.Controller {
   }
   async hooksAction() {
     // 带 $hook_type 参数的 视图钩子调用， 参数1，参数2，...{'$hook_type':1},如果由多个参数，{'$hook_type':1} 放最后一个。
-    await this.hook('adminArticleEdit', '风的撒风的撒风的撒发达富啊222', '的撒风大师傅撒', {'$hook_type': 1});
+    await this.hook('adminArticleEdit', '风的撒风的撒风的撒发达富啊222', '的撒风大师傅撒', { '$hook_type': 1 });
     // 带 $hook_key 参数的 视图钩子调用， 参数1，参数2，...{'$hook_key':'aaaa'},如果由多个参数，{'$hook_key':'aaaa'} 放最后一个。
-    await this.hook('adminArticleEdit', 'aaaa', '的撒风大师傅撒', {'$hook_key': 'aaaa'});
-    await this.hook('adminArticleEdit', 'bbbb', '的撒风大师傅撒', {'$hook_key': 'bbbb'});
+    await this.hook('adminArticleEdit', 'aaaa', '的撒风大师傅撒', { '$hook_key': 'aaaa' });
+    await this.hook('adminArticleEdit', 'bbbb', '的撒风大师傅撒', { '$hook_key': 'bbbb' });
     // 带 $hook_key 和 $hook_type 参数的 视图钩子调用， 参数1，参数2，...{'$hook_key':'bbbb','$hook_type':2},如果由多个参数，{'$hook_key':'bbbb','$hook_type':2} 放最后一个。
-    await this.hook('adminArticleEdit', 'bbbb', '的撒风大师傅撒', {'$hook_key': 'bbbb', '$hook_type': 2});
+    await this.hook('adminArticleEdit', 'bbbb', '的撒风大师傅撒', { '$hook_key': 'bbbb', '$hook_type': 2 });
     // 普通调用
-    await this.hook('adminArticleEdit', {'$hook_key2': 'bbbb', '$hook_type2': 2});
+    await this.hook('adminArticleEdit', { '$hook_key2': 'bbbb', '$hook_type2': 2 });
     return this.display();
   }
   async cacheAction() {
@@ -104,7 +106,7 @@ module.exports = class extends think.Controller {
     return this.body = data;
   }
   async topicsAction() {
-    const list = await this.model('document_picture').where({id: ['!=', 311]}).select();
+    const list = await this.model('document_picture').where({ id: ['!=', 311] }).select();
     for (const v of list) {
       const arr = [];
       if (v.pictureurls) {
@@ -118,9 +120,31 @@ module.exports = class extends think.Controller {
         }
       }
       console.log(arr);
-      const data = {atlas: JSON.stringify(arr)};
-      await this.model('document_picture').where({id: v.id}).update(data);
+      const data = { atlas: JSON.stringify(arr) };
+      await this.model('document_picture').where({ id: v.id }).update(data);
     }
     return this.body = 22;
+  }
+  async demo1Action() {
+    await this.cache('dengyunhang', '邓云行');
+    let username = await this.cache('dengyunhang');
+    console.log('***************', username)
+    this.assign('username', username)
+    return this.display();
+  }
+  /**
+   * 获指定名称的 cache ,若为空，则设置后指定的 value 后，
+   * 再获取。(改为 return '太阳2' 后，不会覆盖原有值)
+   */
+  async demo2Action() {
+    let data = await this.cache('taiyang', () => {
+      return '太阳';
+    });
+    let myData = await this.cache('taiyang');
+    console.log('--demo2Action--', myData)
+    this.assign('data', myData)
+
+    return this.display();
+
   }
 };
