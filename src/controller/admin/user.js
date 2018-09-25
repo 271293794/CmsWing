@@ -105,6 +105,8 @@ module.exports = class extends think.cmswing.admin {
   /**
      * adduser
      * 添加用户
+     * 由于事务里的操作需要在同一个连接里执行，如果处理过程中涉及多个模型的操作，需要多
+     * 个模型复用同一个数据库连接，这时可以通过 model.db 方法达到复用数据库连接的效果。
      * @returns {Promise|*}
      */
   async adduserAction() {
@@ -128,6 +130,7 @@ module.exports = class extends think.cmswing.admin {
       if (data.is_admin == 1) {
         res = await this.db.transaction(async() => {
           const userId = await self.db.add(data);
+          // model.db(db) 获取或者设置 db 的实例
           return await self.model('auth_user_role').db(self.db.db()).add({
             user_id: userId,
             role_id: data.role_id
